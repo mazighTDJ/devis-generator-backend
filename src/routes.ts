@@ -2,17 +2,25 @@ import { Router, Request, Response, request } from "express";
 import { Database } from "sqlite";
 import sqlite3 from "sqlite3";
 import { Client } from "./types/Client";
-import { createClient } from "./services/serviceClient";
+import { createClient, getClients } from "./services/serviceClient";
 
 const router = Router(); //middelware router  destiner a encapsuler toutes les routes
 
 //recuperation de tout les clients
 router.get("/clients", async (req: Request, res: Response) => {
+  console.log("get clients");
   const db = req.app.locals.db as Database<sqlite3.Database>;
 
-  const allClients: Client[] = await db.all("Select * from clients");
-
-  res.json(allClients);
+  getClients(db)
+    .then((clients) => {
+      //console.log(clients);
+      res.status(200).json(clients);
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ error: "Erreur lors de la recuperation des clients" });
+    });
 });
 
 //ajout d'un nouveau client
