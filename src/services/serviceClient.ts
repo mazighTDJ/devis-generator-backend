@@ -15,10 +15,11 @@ export const createClient = async (
   );
 
   //console.log("lastid", result.lastID);
+  //recuperation de l'ID du dernier client inserer
   return result.lastID;
 };
 
-//recuperation de touts les clients
+//recuperation de tous les clients
 export const getClients = async (
   db: Database<sqlite3.Database>
 ): Promise<Client[]> => {

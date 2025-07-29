@@ -10,7 +10,13 @@ import { Database } from "sqlite";
 const app: Application = express();
 const port = 3001;
 
-app.use(cors()); // Ajout CORS
+app.use(
+  cors({
+    origin: "http://localhost:5173", // ton front
+    credentials: true, // autoriser l'envoi de cookies ou d'en-têtes d'auth
+  })
+); // Ajout CORS
+
 app.use(express.json());
 
 //connexion a la bd au demarrage du serveur

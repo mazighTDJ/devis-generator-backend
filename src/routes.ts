@@ -8,7 +8,7 @@ const router = Router(); //middelware router  destiner a encapsuler toutes les r
 
 //recuperation de tout les clients
 router.get("/clients", async (req: Request, res: Response) => {
-  console.log("get clients");
+  //console.log("get clients");
   const db = req.app.locals.db as Database<sqlite3.Database>;
 
   getClients(db)
